@@ -1,0 +1,21 @@
+{
+   "Rock": {
+      "name": "Rock",
+      "musics": {
+         "Cross-Eyed Mary": {
+            "name": "Cross-Eyed Mary",
+            "artist": "Jethro Tull",
+            "album": "Aqualung",
+            "anoDeLancamento": "02/02/169",
+            "duracao": "6:00"
+         },
+         "Cheap Day Return": {
+            "name": "Cheap Day Return",
+            "artist": "Jethro Tull",
+            "album": "Aqualung",
+            "anoDeLancamento": "02/02/169",
+            "duracao": "16:00"
+         }
+      }
+   }
+}

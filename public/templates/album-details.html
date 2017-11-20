@@ -1,0 +1,33 @@
+<link type="text/css" rel="stylesheet" href="./css/btn-circle.css">
+
+<div class="row clearfix">
+  <div class="col m-2" style="max-width: {{maxSize ? maxSize : '15' }}rem">
+    <album-box album='album'></album-box>
+  </div>
+  <div class="col m-2 text-bottom">
+    <i class="fa fa-music"></i> Músicas: {{albumLength()}}</br>
+    <i class="fa fa-clock-o"></i> Duração total: {{albumDuraction()}}
+  </div>
+</div>
+<div class="list-group p-2">
+  <div class="list-group-item list-group-item-action clearfix" ng-if="music.name" ng-repeat="music in musics">
+    <button type="button" id="listenButton" ng-click="listen(music)" class="btn btn-success btn-sm btn-circle mx-1" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-play"></i>
+    </button>
+    {{music.name}} -
+    {{music.duracao}}
+    <div class="float-right">
+      <div class="dropdown">
+        <button type="button" id="playlistsAddButton" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-plus"></i>
+        </button>
+
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="playlistsAddButton">
+          <a class="dropdown-item" ng-repeat="playlist in playlists" href=""><div ng-click="addMusic(playlist.name, music)">{{playlist.name}}</div></a>
+          <div ng-if="playlists.length > 0" class="dropdown-divider"></div>
+          <a class="dropdown-item" ui-sref="addPlaylist">Criar nova playlist</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

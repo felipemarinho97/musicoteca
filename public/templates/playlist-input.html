@@ -1,0 +1,19 @@
+<div class="container box">
+  <div class="row p-2">
+    <div class="col">
+      <div class="h2 form-title">Adicionar nova playlist:</div>
+      </br>
+
+      <div class="addon">
+        <form class="from-group">
+          <label for="nome">Nome</label>     <input class="form-control" type="text" name="playlistName" id="nome" ng-model='playlist.name' required></br>
+
+          <button type="submit" class="btn btn-primary" ng-click="createNewPlaylist()">
+          Adicionar Playlist
+          </button>
+          <div class="p-2" id="alert-placeholder"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

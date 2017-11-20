@@ -1,0 +1,29 @@
+<style>
+.bg-dark-transparent {
+    background-color: rgba(52, 58, 64, 0.6) !important;
+}
+.bg-dark-transparent:hover {
+    background-color: rgba(52, 58, 64, 0.5) !important;
+}
+
+/*.card-header {
+  background-color: rgba(0,0,0,0);
+  border-bottom: 1px solid rgba(0,0,0,0);
+}*/
+</style>
+
+<div style="min-width: 12rem" class='card bg-dark text-white'>
+  <a ui-sref="profile.musicList({albumName: album.name})">
+    <img class='card-img' ng-src='{{album.imagemSrc}}'>
+  </a>
+  <div class='card-img-overlay bg-dark-transparent'>
+    <div class="card-body clearfix">
+      <div class="float-left">
+        <angular-rating-icons decimal="true" max="10" icon-size="20" color-base="orange" ng-model="album.classification"></angular-rating-icons>
+      </div>
+    </div>
+    <div class="card-header">
+      <h4 class='h4 card-title pt-2 text-center' ui-sref="profile.musicList({albumName: album.name})">{{album.name}}</h4>
+    </div>
+  </div>
+</div>

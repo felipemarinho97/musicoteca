@@ -1,0 +1,8 @@
+<div ng-if="artist.name" ng-repeat="artist in artists">
+  <div class="card-header">
+    <h5>{{artist.name}}</h5>
+  </div>
+  <div class="card-body" ng-if="album.name" ng-repeat="album in artist.albums">
+    <album-details album="album" max-size='16'></album-details>
+  </div>
+</div>

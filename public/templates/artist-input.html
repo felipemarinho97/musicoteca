@@ -1,0 +1,35 @@
+<style>
+  /*artist-box {
+  box-shadow: 10px solid black;
+}*/
+
+  .box {
+    position: absolute;
+  }
+</style>
+
+<div class="container box">
+  <div class="row p-2">
+    <div class="col">
+      <div class="h2 form-title">Adicione um novo artista:</div>
+      </br>
+
+      <form>
+        <div class="addon">
+          <label for="nome">Nome</label> <input class="form-control" type="text" name="artistName" id="nome" ng-model='artist.name'></br>
+          <label for="imagem">Imagem</label> <input class="form-control" type="text" name="artistImage" id="imagem" ng-model="artist.imagemSrc" accept="image/x-png,image/gif,image/jpeg" /></br>
+
+          <button type="submit" class="btn btn-primary" ng-click="createNewArtist()">
+            Adicionar artista
+          </button>
+          <div class="p-2" id="alert-placeholder"></div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col">
+      <div class="h3">Preview:</div>
+      <artist-box artist='artist'></artist-box>
+    </div>
+  </div>
+</div>

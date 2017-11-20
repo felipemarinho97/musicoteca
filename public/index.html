@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app='musicoteca'>
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Musicoteca</title>
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+    integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <script src="https://use.fontawesome.com/ceded2c5cc.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-resource.js"></script>
+
+    <script src="./js/app/app.module.js"></script>
+    <script src="./js/app/app.config.js"></script>
+    <script src="./js/app/artist-input/artist-input.module.js"></script>
+    <script src="./js/app/artist-input/artist-input.component.js"></script>
+    <script src="./js/app/music-input/music-input.module.js"></script>
+    <script src="./js/app/music-input/music-input.component.js"></script>
+    <script src="./js/app/playlist-input/playlist-input.module.js"></script>
+    <script src="./js/app/playlist-input/playlist-input.component.js"></script>
+    <script src="./js/app/playlists/playlists.module.js"></script>
+    <script src="./js/app/playlists/playlists.component.js"></script>
+    <script src="./js/app/artist-box/artist-box.module.js"></script>
+    <script src="./js/app/artist-box/artist-box.directive.js"></script>
+    <script src="./js/app/album-box/album-box.module.js"></script>
+    <script src="./js/app/album-box/album-box.directive.js"></script>
+    <script src="./js/app/alert/alert.module.js"></script>
+    <script src="./js/app/alert/alert.directive.js"></script>
+    <script src="./js/app/nav-bar/nav-bar.module.js"></script>
+    <script src="./js/app/nav-bar/nav-bar.component.js"></script>
+    <script src="./js/app/artist-grid/artist-grid.module.js"></script>
+    <script src="./js/app/artist-grid/artist-grid.component.js"></script>
+    <script src="./js/app/album-grid/album-grid.module.js"></script>
+    <script src="./js/app/album-grid/album-grid.component.js"></script>
+    <script src="./js/app/artist-profile/artist-profile.module.js"></script>
+    <script src="./js/app/artist-profile/artist-profile.component.js"></script>
+    <script src="./js/app/core/data/data.module.js"></script>
+    <script src="./js/app/core/data/data.service.js"></script>
+    <script src="./js/app/music-list/music-list.module.js"></script>
+    <script src="./js/app/music-list/music-list.component.js"></script>
+    <script src="./js/app/music-grid/music-grid.module.js"></script>
+    <script src="./js/app/music-grid/music-grid.component.js"></script>
+    <script src="./js/app/album-details/album-details.module.js"></script>
+    <script src="./js/app/album-details/album-details.directive.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="./js/angular-rating-icons/dist/angular-rating-icons.min.css">
+    <script src="./js/angular-rating-icons/dist/angular-rating-icons.min.js"></script>
+    <script src='./js/ng-infinite-scroll.min.js'></script>
+    <script src='./js/angular.lastfm.min.js'></script>
+  </head>
+  <body>
+    <nav-bar></nav-bar>
+    <div ui-view></div>
+  </body>
+</html>

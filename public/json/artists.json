@@ -1,0 +1,105 @@
+
+
+{
+   "Jethro Tull": {
+      "name": "Jethro Tull",
+      "imagemSrc": "http://www.prog-sphere.com/wp-content/uploads/2017/05/Jethro-Tull.jpg",
+      "albums": {
+         "Aqualung": {
+            "name": "Aqualung",
+            "artist": "Jethro Tull",
+            "musics": {
+               "Aqualung": {
+                  "name": "Aqualung",
+                  "artist": "Jethro Tull",
+                  "album": "Aqualung",
+                  "anoDeLancamento": "1971",
+                  "duracao": "6:38"
+               },
+               "Cross-Eyed Mary": {
+                  "name": "Cross-Eyed Mary",
+                  "artist": "Jethro Tull",
+                  "album": "Aqualung",
+                  "anoDeLancamento": "1971",
+                  "duracao": "4:10"
+               },
+               "Cheap Day Return": {
+                  "name": "Cheap Day Return",
+                  "artist": "Jethro Tull",
+                  "album": "Aqualung",
+                  "anoDeLancamento": "1971",
+                  "duracao": "1:23"
+               },
+               "Up To Me": {
+                  "name": "Up To Me",
+                  "artist": "Jethro Tull",
+                  "album": "Aqualung",
+                  "anoDeLancamento": "1971",
+                  "duracao": "3:16"
+               },
+               "Hymn 43": {
+                  "name": "Hymn 43",
+                  "artist": "Jethro Tull",
+                  "album": "Aqualung",
+                  "anoDeLancamento": "1971",
+                  "duracao": "3:19"
+               },
+               "lenght": 5
+            }
+         },
+         "Thick as a Brick": {
+            "name": "Thick as a Brick",
+            "artist": "Jethro Tull",
+            "musics": {
+               "Thick as a Brick, Part 1": {
+                  "name": "Thick as a Brick, Part 1",
+                  "artist": "Jethro Tull",
+                  "album": "Thick as a Brick",
+                  "anoDeLancamento": "1972",
+                  "duracao": "22:23"
+               },
+               "Thick as a Brick, Part 2": {
+                  "name": "Thick as a Brick, Part 2",
+                  "artist": "Jethro Tull",
+                  "album": "Thick as a Brick",
+                  "anoDeLancamento": "1972",
+                  "duracao": "20:52"
+               },
+               "lenght": 2
+            }
+         },
+         "lenght": 2
+      },
+      "musicQtd": 7
+   },
+   "Pink Floyd": {
+      "name": "Pink Floyd",
+      "imagemSrc": "https://upload.wikimedia.org/wikipedia/en/d/d6/Pink_Floyd_-_all_members.jpg",
+      "albums": {},
+      "musicQtd": 0
+   },
+   "Serginho Groisman": {
+      "name": "Serginho Groisman",
+      "imagemSrc": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Serginho_Groisman_%282012%29_cropped.jpg",
+      "albums": {},
+      "musicQtd": 0
+   },
+   "Iron Maiden": {
+      "name": "Iron Maiden",
+      "imagemSrc": "https://lastfm-img2.akamaized.net/i/u/770x0/35c87ffa6a074749b1c729de95c8e23f.jpg#35c87ffa6a074749b1c729de95c8e23f",
+      "albums": {},
+      "musicQtd": 0
+   },
+   "System of a Down": {
+      "name": "System of a Down",
+      "imagemSrc": "https://lastfm-img2.akamaized.net/i/u/770x0/05d78b59cf1242f09fab2176c8bf07df.jpg#05d78b59cf1242f09fab2176c8bf07df",
+      "albums": {},
+      "musicQtd": 0
+   },
+   "Led Zeppelin": {
+      "name": "Led Zeppelin",
+      "imagemSrc": "http://bornintheeighties.net/wp-content/uploads/2014/09/zeppelin-1.jpg",
+      "albums": {},
+      "musicQtd": 0
+   }
+}

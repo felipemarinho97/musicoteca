@@ -1,0 +1,86 @@
+<style>
+  .post-module:hover {
+    -webkit-transform: scale(1.005);
+    -moz-transform: scale(1.005);
+    transform: scale(1.005);
+  }
+
+  .post-module .thumbnail {
+    overflow: hidden;
+  }
+
+  /*.post-module .thumbnail .date {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+    background: #f2b202;
+    width: 55px;
+    height: 55px;
+    padding: 12.5px 0;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-align: center;
+    -webkti-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .post-module .thumbnail .date .day {
+    font-size: 18px;
+    line-height: 31px;
+    color: #fff;
+  }
+
+  .post-module .thumbnail .date .month {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+*/
+
+  .post-module:hover {
+    /*display: inline-block;*/
+    /*height: 110%;*/
+    -webkit-transition: all 0.3s linear 0s;
+    -moz-transition: all 0.3s linear 0s;
+    -ms-transition: all 0.3s linear 0s;
+    -o-transition: all 0.3s linear 0s;
+    transition: all 0.3s linear 0s;
+  }
+
+  .fav-heart {
+    outline: 0;
+  }
+</style>
+
+<div class='card hoverable post-module'>
+  <a ui-sref="profile.albums({name: artist.name})">
+    <div class="thumbnail"><img class='card-img-top' ng-src='{{artist.imagemSrc}}'>
+      <div>
+  </a>
+  <div class='card-block'>
+    <h4 class='h4 card-title pt-2 text-center clearfix'>
+        <div class="float-right px-2">
+          <a href="" class="fav-heart text-center text-danger" title="Marcar {{artist.name}} como favorito" ng-click="favorite()">
+  					<i class="fa fa-1x" ng-class="(artist.favorite==1) ? 'fa-heart' : 'fa-heart-o'"></i><br>
+  				</a>
+        </div>
+        <p ui-sref="profile.albums({name: artist.name})">{{artist.name}}</p>
+    </h4>
+    <!-- <h6 class='h6 px-2 card-description' ng-href="/artist/{{artist.name}}">
+    </h6> -->
+
+    <div class="card-footer clearfix">
+      <div class="float-right">
+        <angular-rating-icons decimal="true" max="10" icon-size="20" color-base="orange" ng-model="artist.classification"></angular-rating-icons>
+      </div>
+      <div class="float-left">
+        <i class="fa fa-music"></i> {{artist.musicQtd}}
+        <i class="fa fa-dot-circle-o"></i> {{artist.albums.lenght}}
+      </div>
+    </div>
+  </div>
+  </div>
