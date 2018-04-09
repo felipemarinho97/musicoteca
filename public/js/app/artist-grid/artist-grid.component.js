@@ -3,9 +3,16 @@
 angular.module('artistGrid').
 component('artistGrid', {
   templateUrl: '/templates/artist-grid.html',
+  bindings: {
+    artists: "="
+  },
   controller: function(Data, $scope) {
 
-    $scope.list = Data.queryArtists();
+    this.$onInit = () => {
+      $scope.list = this.artists;
+    }
+
+
     $scope.limit = 20;
 
     $scope.onSearchChange = function() {

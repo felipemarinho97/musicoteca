@@ -1,4 +1,4 @@
-<div ng-if="artist.name" ng-repeat="artist in artists">
+<div ng-if="artist.name && artist.albums.length > 0" ng-repeat="artist in artists">
   <div class="card-header">
     <h5>{{artist.name}}</h5>
   </div>

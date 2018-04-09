@@ -9,8 +9,7 @@ angular.module('artistInput').
       $scope.artist = {
         name: "",
         imagemSrc: "",
-        albums: {lenght:0},
-        musicQtd: 0
+        favorite: false
       }
 
       $scope.hide = function(element) {
@@ -26,13 +25,18 @@ angular.module('artistInput').
 
       $scope.createNewArtist = function() {
         if ($scope.artist.name === '') {
-          alert("danger", 'Nome do artista obrigatório!');
-        } else if (Data.getArtist($scope.artist.name)) {
-          alert("warning", $scope.artist.name+' já existe!');
+          alert("danger", 'Nome do artista obrigatório!');  
         } else {
-          Data.putArtist(angular.copy($scope.artist));
+          Data.putArtist(angular.copy($scope.artist)).then(() => {
+            alert("success",$scope.artist.name + " adicionado com sucesso!");          
+          }).catch((response) => {
+            if (response.status == 409) {
+              alert("warning", response.data.name+' já existe!');
+            } else {
+              alert("danger", 'Ocorreu um erro inesperado ao adicionar o artista.');
+            }
+          });
 
-          alert("success",$scope.artist.name + " adicionado com sucesso!");
 
           $scope.artist.name = "";
           $scope.artist.imagemSrc = "/images/blank_artist.png";

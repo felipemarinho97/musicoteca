@@ -6,12 +6,16 @@ angular.module('musicGrid').
     styleUrls: ['/css/artist-input.css'],
     controller: function(Data, $scope) {
 
-      $scope.artists = Data.queryArtists();
+      Data.queryArtists().then((response) => {
+        $scope.artists = response.data;
+      });
 
-      $scope.playlists = Data.queryPlaylists();
+      Data.queryPlaylists().then((response) => {
+        $scope.playlists = response.data;
+      });
 
-      $scope.addMusic = function(playlistName, music) {
-        return Data.addMusic(playlistName, music);
+      $scope.addMusic = function(playlistId, music) {
+        return Data.addMusic(playlistId, music);
       }
     }
   });

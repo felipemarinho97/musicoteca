@@ -5,25 +5,28 @@
     <album-box album='album'></album-box>
   </div>
   <div class="col m-2 text-bottom">
-    <i class="fa fa-music"></i> Músicas: {{albumLength()}}</br>
-    <i class="fa fa-clock-o"></i> Duração total: {{albumDuraction()}}
+    <i class="fa fa-music"></i> Músicas: {{albumLength}}</br>
+    <i class="fa fa-clock-o"></i> Duração total: {{albumDuraction}}
   </div>
 </div>
 <div class="list-group p-2">
+  <!-- <ng-youtube-embed video="videoID" width="100%" autoplay="true"></ng-youtube-embed> -->
   <div class="list-group-item list-group-item-action clearfix" ng-if="music.name" ng-repeat="music in musics">
     <button type="button" id="listenButton" ng-click="listen(music)" class="btn btn-success btn-sm btn-circle mx-1" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-play"></i>
     </button>
     {{music.name}} -
-    {{music.duracao}}
+    {{music.length}}
     <div class="float-right">
       <div class="dropdown">
         <button type="button" id="playlistsAddButton" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-plus"></i>
+          <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyNi42NjcgNDI2LjY2NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDI2LjY2NyA0MjYuNjY3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CjxnPgoJPGc+CgkJPGc+CgkJCTxyZWN0IHg9IjAiIHk9IjY0IiB3aWR0aD0iMjU2IiBoZWlnaHQ9IjQyLjY2NyIgZmlsbD0iI0ZGRkZGRiIvPgoJCQk8cmVjdCB4PSIwIiB5PSIxNDkuMzMzIiB3aWR0aD0iMjU2IiBoZWlnaHQ9IjQyLjY2NyIgZmlsbD0iI0ZGRkZGRiIvPgoJCQk8cmVjdCB4PSIwIiB5PSIyMzQuNjY3IiB3aWR0aD0iMTcwLjY2NyIgaGVpZ2h0PSI0Mi42NjciIGZpbGw9IiNGRkZGRkYiLz4KCQkJPHBvbHlnb24gcG9pbnRzPSIzNDEuMzMzLDIzNC42NjcgMzQxLjMzMywxNDkuMzMzIDI5OC42NjcsMTQ5LjMzMyAyOTguNjY3LDIzNC42NjcgMjEzLjMzMywyMzQuNjY3IDIxMy4zMzMsMjc3LjMzMyAgICAgIDI5OC42NjcsMjc3LjMzMyAyOTguNjY3LDM2Mi42NjcgMzQxLjMzMywzNjIuNjY3IDM0MS4zMzMsMjc3LjMzMyA0MjYuNjY3LDI3Ny4zMzMgNDI2LjY2NywyMzQuNjY3ICAgICIgZmlsbD0iI0ZGRkZGRiIvPgoJCTwvZz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />
         </button>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="playlistsAddButton">
-          <a class="dropdown-item" ng-repeat="playlist in playlists" href=""><div ng-click="addMusic(playlist.name, music)">{{playlist.name}}</div></a>
+          <a class="dropdown-item" ng-click="Player.addQueue(music)">Adicionar à fila</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" ng-repeat="playlist in playlists" href=""><div ng-click="addMusic(playlist, music)">{{playlist.name}}</div></a>
           <div ng-if="playlists.length > 0" class="dropdown-divider"></div>
           <a class="dropdown-item" ui-sref="addPlaylist">Criar nova playlist</a>
         </div>

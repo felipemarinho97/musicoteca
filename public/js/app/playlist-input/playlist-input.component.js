@@ -22,19 +22,22 @@ angular.module('playlistInput').
       }
 
       $scope.playlist = {
-        name: "",
-        musics: {}
+        name: ""
       }
 
       $scope.createNewPlaylist = function() {
         if (check($scope.playlist.name)) {
-
-        } else if (angular.isDefined(Data.getPlaylist($scope.playlist.name))) {
-          alert("warning", 'Playlist "' + $scope.playlist.name + '" já existe');
         } else {
-          Data.putPlaylist(angular.copy($scope.playlist));
+          Data.putPlaylist(angular.copy($scope.playlist)).then(() => {
+            alert("success", 'Playlist "' + $scope.playlist.name + '" adiconada!');          
+          }).catch((response) => {
+            if (response.status == 409) {
+              alert("warning", 'Playlist "' + $scope.playlist.name + '" já existe');
+            } else {
+              alert("danger", "Um erro inesperado aconteceu.");
+            }
+          });
 
-          alert("success", 'Playlist "' + $scope.playlist.name + '" adiconada!');
         }
       }
     }

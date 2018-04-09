@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('albumBox').
-  directive('albumBox', ["LastFM",function(LastFM) {
+  directive('albumBox', ["LastFM", "Data", function(LastFM, Data) {
     return {
       scope: {
         album: "=album",
@@ -20,11 +20,17 @@ angular.module('albumBox').
         scope.album.imagemSrc = check(scope.album.imagemSrc, "/images/blank_artist.png");
 
         // Busca capas dos albuns no lastfm
-        let a = LastFM.Album.getInfo(scope.album.artist, scope.album.name);
+        LastFM.Album.getInfo(scope.album.artist, scope.album.name).then((response) => {
+          scope.album.imagemSrc =  response.image[3]["#text"];
+        });
 
-        setTimeout(function(){
-          scope.album.imagemSrc = a.$$state.value.image[3]["#text"];
-        }, 1000)
+        scope.updateClassification = () => {
+          Data.classificateAlbum(scope.album.id, scope.album.classification);
+        }
+
+        // setTimeout(function(){
+        //   scope.album.imagemSrc = a.$$state.value.image[3]["#text"];
+        // }, 1000)
       }
     }
   }])

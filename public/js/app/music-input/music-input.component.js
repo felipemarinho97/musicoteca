@@ -34,8 +34,8 @@ component('musicInput', {
       name: "",
       artist: "",
       album: "",
-      anoDeLancamento: null,
-      duracao: ""
+      releaseYear: null,
+      length: ""
     }
 
     var album = {
@@ -47,11 +47,8 @@ component('musicInput', {
 
     $scope.createNewMusic = function() {
       if (check($scope.music.name) || check($scope.music.artist) ||
-        check($scope.music.album) || check($scope.music.anoDeLancamento) ||
-        check($scope.music.duracao)) {
-
-      } else if (Data.getMusic($scope.music)) {
-        alert("warning", "Música já existe");
+        check($scope.music.album) || check($scope.music.releaseYear) ||
+        check($scope.music.length)) { 
       } else {
 
         // let a = LastFM.Album.getInfo($scope.music.artist, $scope.music.album);
@@ -60,9 +57,16 @@ component('musicInput', {
         //   console.log(a.$$state.value.image[2]["#text"]);
         // }, 500)
 
-        Data.putMusic(angular.copy($scope.music));
+        Data.putMusic(angular.copy($scope.music)).then(() => {
+          alert("success", $scope.music.name + " - " + $scope.music.artist + " adiconado!");
+        }).catch((response) => {
+          if (response.status == 409) {
+            alert("warning", "Música já existe!");
+          } else {
+            alert("danger", "Um erro inesperado aconteceu.");
+          }
+        });
 
-        alert("success", $scope.music.name + " - " + $scope.music.artist + " adiconado!");
       }
     }
   }

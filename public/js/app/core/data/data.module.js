@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('data', ['lastfm']);
+angular.module('data', ['lastfm', 'ab-base64']);

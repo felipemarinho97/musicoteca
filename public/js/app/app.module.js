@@ -7,6 +7,11 @@ angular.module('musicoteca', [
   'angular-rating-icons',
   'infinite-scroll',
   'lastfm',
+  'ab-base64',
+  'ngYoutubeEmbed',
+  'angular-loading-bar',
+  'angularResizable',
+  'draggableModule',
 
   // interno
   'artistInput',
@@ -22,6 +27,10 @@ angular.module('musicoteca', [
   'musicList',
   'playlists',
   'musicGrid',
-  'albumDetails'
-
+  'albumDetails',
+  'login',
+  'register',
+  'floatingPlayer',
+  'userProfile',
+  'userSettings',
 ]);

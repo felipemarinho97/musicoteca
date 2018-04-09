@@ -3,7 +3,15 @@
 angular.module('navBar').
   component('navBar', {
     templateUrl: '/templates/nav-bar.html',
-    controller: function($scope) {
+    controller: function($scope, Data) {
+      Data.login();
+
+      $scope.Data = Data;
+
+      $scope.logout = () => {
+        Data.logout();
+      }
+
       var items =  [{
         title: "Artistas",
         id: 'artist'
@@ -19,7 +27,8 @@ angular.module('navBar').
       {
         title: "Pesquisar",
         id: 'search'
-      }];
+      }
+      ];
 
       $scope.items = items;
 

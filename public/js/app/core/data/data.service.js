@@ -2,50 +2,46 @@
 
 var data = angular.module('data');
 
-data.factory('Data', function($resource, $http) {
-  var playlistList = {};
-  var artistList = {};
+data.factory('Data', function($resource, $window, $http, base64) {
 
-  /***** REQUESTS INTERNOS PARA FINS DE TESTE
-   * Pode ser comentado em caso de necessidade.
-   *****/
-  $http.get('/json/playlists.json')
-    .then((response) => {
-      playlistList = response.data;
-    }, () => {
-      playlistList = {}
-    });
-  $http.get('/json/artists.json')
-    .then((response) => {
-      artistList = response.data;
-    }, () => {
-      artistList = {}
-    });
-  /***** REQUESTS INTERNOS PARA FINS DE TESTE *****/
-
-  var toArray = function(obj) {
-    return $.map(obj, function(value, index) {
-      return [value];
-    });
-  }
+  var user;
+  var apiUrl = 'https://musicoteca.herokuapp.com/';
 
   return {
     queryArtists: function() {
-      return toArray(artistList);
+      return $http.get(apiUrl + 'artists', {});
     },
 
     queryAlbums: function(artistName) {
-      var artist = this.getArtist(artistName);
-      return toArray(artist.albums);
+      return $http.get(apiUrl + 'albums/' + artistName);
+    },
+
+    queryUserArtists: function(username) {
+      return $http.get(apiUrl + 'user/artists/' + username);
+    },
+
+    queryUserAlbums: function(username) {
+      return $http.get(apiUrl + 'user/albums/' + username);
+    },
+
+    queryUserMusics: function(username) {
+      return $http.get(apiUrl + 'user/musics/' + username);
+    },
+
+    queryUserPlaylists: function(username) {
+      return $http.get(apiUrl + 'user/playlists/' + username);
+    },
+
+    queryUsers: function() {
+      return $http.get(apiUrl + 'users');
     },
 
     queryMusics: function(artistName, albumName) {
-      var album = this.getAlbum(albumName, artistName);
-      return toArray(album.musics);
+      return $http.get(apiUrl + 'musics/' + artistName + '/' + albumName);
     },
 
     queryPlaylists: function() {
-      return toArray(playlistList);
+      return $http.get(apiUrl + 'playlists');
     },
 
     queryPlaylistMusics: function(playlistName) {
@@ -53,91 +49,142 @@ data.factory('Data', function($resource, $http) {
     },
 
     getArtist: function(name) {
-      return artistList[name];
+      return $http.get(apiUrl + 'artist/' + name);
     },
 
     putArtist: function(data) {
-      if (!artistList[data.name]) {
-        artistList[data.name] = data;
-      }
+      return $http.post(apiUrl + 'artist', {"name": data.name,
+                            "imagemSrc": data.imagemSrc,
+                            "classification": data.classification,
+                            "favorite": data.favorite == 1 ? true : false
+                            });
+    },
+
+    favoriteArtist: (updateObject) => {
+      return $http.put(apiUrl + 'artist/favorite', updateObject);
+    },
+
+    classificateArtist: (updateObject) => {
+      return $http.put(apiUrl + 'artist/classification', updateObject);
+    },
+
+    setLastMusic: function(music) {
+      return $http.put(apiUrl + 'artist/' + music.artist + '/' + music.id);
+    },
+
+    classificateAlbum: (albumId, classification) => {
+      return $http.put(apiUrl + 'album/' + albumId + '/' + classification);
     },
 
     getAlbum: function(albumName, artistName) {
-      if (artistList[artistName]) {
-        return artistList[artistName].albums[albumName];
-      }
-    },
-
-    setAlbum: function(album) {
-      if (!artistList[album.artist]) { // If artist is undefned, create a new.
-        this.putArtist({
-          name: album.artist,
-          imagemSrc: "",
-          albums: {
-            lenght: 0
-          },
-          musicQtd: 0
-        })
-      }
-
-      // Then assign the album to the artist.
-      artistList[album.artist].albums[album.name] = album;
-      artistList[album.artist].albums.lenght++;
-    },
-
-    getMusic: function(music) {
-      if (this.getAlbum(music.album, music.artist)) {
-        return this.getAlbum(music.album, music.artist).musics[music.name];
-      }
+      return $http.get(apiUrl + 'album/' + artistName + '/' + albumName);
     },
 
     putMusic: function(music) {
-      // If album is undefined, create a new album.
-      if (!this.getAlbum(music.album, music.artist)) {
-        this.setAlbum({
-          name: music.album,
-          artist: music.artist,
-          musics: {
-            lenght: 0
-          }
-        });
-      }
-
-      // Then put the music in the album.
-      this.getAlbum(music.album, music.artist).musics[music.name] = music;
-      this.getAlbum(music.album, music.artist).musics.lenght++;
-      artistList[music.artist].musicQtd++;
-    },
-
-    getPlaylist: function(name) {
-      if (playlistList[name]) {
-        return playlistList[name];
-      }
+      return $http.post(apiUrl + 'music', music);
     },
 
     putPlaylist: function(data) {
-      if (!playlistList[data.name]) {
-        playlistList[data.name] = data;
+      return $http.post(apiUrl + 'playlists/' + data.name);
+    },
+
+    removePlaylist: function(playlistId) {
+      return $http.delete(apiUrl + 'playlists/' + playlistId);
+    },
+
+    addMusic: function(playlistId, music) {
+      return $http.put(apiUrl + 'playlists/' + playlistId + '/' + music.id);
+    },
+
+    removeMusic: function(playlistId, musicId) {
+      return $http.delete(apiUrl + 'playlists/' + playlistId + '/' + musicId);
+    },
+
+    auth: (email, pass, remember) => {
+      $http.defaults.headers.common['Authorization'] = 'Basic ' + base64.encode(email + ':' + pass);
+
+      $window.sessionStorage.token = base64.encode(email + ':' + pass);
+
+      if (remember) {
+        $window.localStorage.token = base64.encode(email + ':' + pass);
       }
+
+      $http.post(apiUrl + 'login', {}, {"method": "POST"}).then((response) => {
+        user = response.data;
+      }).catch(() => {})
+
+      return $http.post(apiUrl + 'login', {}, {"method": "POST"});
     },
 
-    removePlaylist: function(playlistName) {
-      delete playlistList[playlistName];
+    login: () => {
+      if ($window.localStorage.token) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.localStorage.token;
+      } else {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.sessionStorage.token;
+      }
+      $http.post(apiUrl + 'login', {}, {"method": "POST"}).then((response) => {
+        user = response.data;
+      })
     },
 
-    addMusic: function(playlistName, music) {
-      let playlist = this.getPlaylist(playlistName);
-      playlist.musics[music.name] = music;
+    // getUserCredentials: () => {
+    //   return $http.post(apiUrl + 'login', {}, {"method": "POST"});
+    // },
+
+    getUserCredentials: () => {
+      return user;
     },
 
-    removeMusic: function(playlistName, music) {
-      let playlist = this.getPlaylist(playlistName);
-      delete playlist.musics[music.name];
+    getUser: (username) => {
+      return $http.get(apiUrl + 'user/' + username);
     },
 
-    setLastMusic: function(artistName, music) {
-      let artist = this.getArtist(artistName);
-      artist.last = music;
+    getFollowing: (userID) => {
+      return $http.get(apiUrl + 'user/following/' + userID);
+    },
+
+    getFollowers: (userID) => {
+      return $http.get(apiUrl + 'user/followers/' + userID);
+    },
+
+    follow: (userID) => {
+      return $http.post(apiUrl + 'user/follow/' + userID);
+    },
+
+    unfollow: (userID) => {
+      return $http.post(apiUrl + 'user/unfollow/' + userID);
+    },
+
+    logout: () => {
+      delete $window.localStorage.token;
+      delete $window.sessionStorage.token;
+      delete $http.defaults.headers.common['Authorization'];
+      user = undefined;
+    },
+
+    register: (email, pass, name) => {
+      delete $http.defaults.headers.common['Authorization'];
+      return $http.post(apiUrl + 'register', {"email": email, "pass": pass, "nome": name}, {"method": "POST", "headers": {"Content-Type": "application/json"}});
+    },
+
+    update: (user) => {
+      return $http.post(apiUrl + 'user/update', {"email": user.username, "nome": user.nome, "profilePicUrl": user.profilePicUrl});
+    },
+
+    getYouTubeVideoID: (music) => {
+      return $http.get('https://www.googleapis.com/youtube/v3/search/?part=snippet&q='+music.name+' '+music.artist+'&key=AIzaSyAZ87gwtf9Jhg5vFj_D1e8Fl1y_vSC9uV8');
+    },
+
+    sendMessage: (userID, msg) => {
+      return $http.post(apiUrl + 'message/' + userID, msg);
+    },
+
+    getUserReceivedMessages: (userID) => {
+      return $http.get(apiUrl + 'user/message/' + userID);
+    },
+
+    getUserSentMessages: (userID) => {
+      return $http.get(apiUrl + 'user/message/' + userID + '/sent');
     }
 
   }

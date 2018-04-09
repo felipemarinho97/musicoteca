@@ -9,7 +9,7 @@
 
 		<div class="col col-sm-3">
 			<h1 class="h1" ui-sref="profile.albums({name: name})">{{name}}</h1>
-			<angular-rating-icons decimal="true" max="10" icon-size="20" color-base="orange" ng-model="artist.classification"></angular-rating-icons>
+			<angular-rating-icons decimal="true" max="10" icon-size="20" color-base="orange" ng-click="updateClassification()" ng-model="artist.classification"></angular-rating-icons>
 			<div class="float-right">
 				<a href="" class="fav-heart text-center text-danger" title="If you like this, vote it up!" data-toggle="modal" data-target="#myModal">
 					<i class="fa fa-2x" ng-class="(artist.favorite==1) ? 'fa-heart' : 'fa-heart-o'"></i><br>
@@ -17,8 +17,8 @@
 			</div>
 			<img class='card-img-top' ui-sref="profile.albums({name: name})" ng-src='{{artist.imagemSrc}}'>
 
-			<div class="p-2" ng-if="artist.last.name">
-				Última música: {{artist.last.name}}
+			<div class="p-2" ng-if="artist.lastMusic.name">
+				Última música: {{artist.lastMusic.name}}
 			</div>
 
 		</div>

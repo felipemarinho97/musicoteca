@@ -31,14 +31,48 @@
     -o-user-select: none;
   }
 
-  /*.menu li {
-    display: inline-block;
-    text-align: center;
-    padding: 10px;
-  }*/
+  @media (max-width: 575.98px) {
+    .responsive-sticky-top {
+
+    }
+  }
+
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .responsive-sticky-top {
+
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .responsive-sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 2147483647
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .responsive-sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 2147483647
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .responsive-sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 2147483647
+    }
+  }
+
 </style>
 
-<nav class="menu navbar navbar-dark navbar-expand-sm">
+<nav class="menu navbar navbar-dark navbar-expand-sm responsive-sticky-top">
   <li class="navbar-brand" ui-sref="home" id="text-logo">Musicateca</li>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myCollapse">
     <span class="navbar-toggler-icon"></span>
@@ -46,7 +80,7 @@
   <div class="collapse navbar-collapse" id="myCollapse">
     <ul class="navbar-nav">
       <li class="nav-item dropdown px-2">
-        <a class="nav-link dropdown-toggle" id="menuLinks" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Adicionar</a>
+        <a class="nav-link dropdown-toggle" id="menuLinks" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Adicionar</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" ui-sref="addArtist">Artistas</a>
           <a class="dropdown-item" ui-sref="addMusic">Músicas</a>
@@ -55,6 +89,16 @@
       </li>
       <li class="nav-item px-2" ng-repeat="item in items">
         <a class="nav-link" ui-sref="{{item.id}}" id="menuLinks">{{item.title}}</a>
+      </li>
+      <li class="nav-item px-2" ng-if="!Data.getUserCredentials()">
+        <a class="nav-link" ui-sref="login" id="menuLinks">Login</a>
+      </li>
+      <li class="nav-item px-2 dropdown" ng-if="Data.getUserCredentials()">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Data.getUserCredentials().nome}}</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+          <a class="dropdown-item" ng-href="#!/user/{{Data.getUserCredentials().username}}">Perfil</a>
+          <a class="dropdown-item" ng-click="logout()">Logout</a>
+        </div>
       </li>
     </ul>
   </div>

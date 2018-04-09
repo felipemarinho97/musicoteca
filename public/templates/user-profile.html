@@ -1,0 +1,229 @@
+<style>
+  .centered-and-cropped {
+    object-fit: cover
+  }
+
+  artist-box {
+    max-width: 200px;
+    /* max-height: 200px; */
+  }
+
+
+  .bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem
+  }
+
+  .bd-callout h4 {
+    margin-top: 0;
+    margin-bottom: .25rem
+  }
+
+  .bd-callout p:last-child {
+    margin-bottom: 0
+  }
+
+  .bd-callout code {
+    border-radius: .25rem
+  }
+
+  .bd-callout+.bd-callout {
+    margin-top: -.25rem
+  }
+
+  .bd-callout-info {
+    border-left-color: #5bc0de
+  }
+
+  .bd-callout-info h4 {
+    color: #5bc0de
+  }
+
+  .bd-callout-warning {
+    border-left-color: #f0ad4e
+  }
+
+  .bd-callout-warning h4 {
+    color: #f0ad4e
+  }
+
+  .bd-callout-danger {
+    border-left-color: #d9534f
+  }
+
+  .bd-callout-danger h4 {
+    color: #d9534f
+  }
+
+  @media (max-width: 575.98px) {
+    .rp-sidebar {}
+    .rp-col-sm-3 {}
+  }
+
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .rp-sidebar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      /* z-index: 1020; */
+    }
+    .rp-col-sm-3 {}
+  }
+
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .rp-sidebar {
+      /* position: -webkit-sticky; */
+      position: fixed;
+      top: 282;
+      width: 100%;
+
+      /* z-index: 1020 */
+    }
+    .rp-col-sm-3 {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 25%;
+      flex: 0 0 25%;
+      max-width: 25%
+    }
+  }
+
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .rp-sidebar {
+      /* position: -webkit-sticky; */
+      position: fixed;
+      top: 282;
+      width: 100%;
+
+      /* z-index: 1020 */
+    }
+    .rp-col-sm-3 {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 25%;
+      flex: 0 0 25%;
+      max-width: 25%
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .rp-sidebar {
+      /* position: -webkit-sticky; */
+      position: fixed;
+      top: 282;
+      width: 100%;
+      /* z-index: 1020 */
+    }
+    .rp-col-sm-3 {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 25%;
+      flex: 0 0 25%;
+      max-width: 25%
+    }
+  }
+</style>
+
+<div class="container-flex">
+  <div class="row p-3">
+
+    <div class="col col-sm-3">
+      <div style="word-wrap: break-word; overflow: hidden;" class="rp-sidebar rp-col-sm-3 text-center">
+        <img class='centered-and-cropped card-img-top' width="180px" height="180px" style="border-radius: 50%;  max-width: 180px" ng-src="{{ user.profilePicUrl ? user.profilePicUrl : '/images/blank-profile-picture.png' }}">
+        <div class="h4">{{user.nome}}</div>
+        <h6>{{(!user.username ? user.email : user.username)}}</h6>
+        <div class="float-right">
+          <div ng-if="Data.getUserCredentials().username == name">
+            <button type="button" id="settingsButton" ui-sref="userProfile.settings" class="btn btn-info btn-sm" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-cog"></i>
+            </button>
+          </div>
+          <div ng-if="Data.getUserCredentials().username != name" class="dropdown">
+            <button type="button" id="settingsButton" ng-click="Data.follow(user.id)" class="btn btn-info btn-sm" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="text-left">
+          Artistas: {{artists.length}}</br>
+          Albums: {{albums.length}}</br>
+          Musicas: {{musics.length}}
+        </div>
+        Seguidores:
+        <div ng-repeat="follower in followers">
+          <a ng-href="#!/user/{{follower.email}}">
+            <img class='centered-and-cropped card-img-top' width="50px" height="50px" style="border-radius: 50%; max-width: 50px" ng-src="{{ follower.profilePicUrl ? follower.profilePicUrl : '/images/blank-profile-picture.png' }}">
+          </a>
+        </div>
+        <div ng-if="followers.length == 0">{{user.nome}} ainda não tem seguidores</div>
+        Seguindo:
+        <div ng-repeat="following in followings">
+          <a ng-href="#!/user/{{following.email}}">
+            <img class='centered-and-cropped card-img-top' width="50px" height="50px" style="border-radius: 50%; max-width: 50px" ng-src="{{ following.profilePicUrl ? following.profilePicUrl : '/images/blank-profile-picture.png' }}">
+          </a>
+        </div>
+        <div ng-if="followings.length == 0">{{user.nome}} ainda não seguiu ninguém</div>
+      </div>
+    </div>
+
+    <div class="col col-sm-9">
+
+      <div class="container" ui-view>
+        <h4>Principais Artistas:</h4>
+        <div class="container card-columns">
+          <div ng-repeat="artist in artists | orderBy:['!favorite','!classification'] | limitTo:6">
+            <artist-box artist='artist'></artist-box>
+          </div>
+          <div ng-if="artists.length == 0">Nenhum artista.</div>
+        </div>
+        <br>
+        <h4>Top Albums:</h4>
+        <div class="container card-columns">
+          <div ng-repeat="album in albums | orderBy:['!favorite','!classification'] | limitTo:10">
+            <album-box album="album"></album-box>
+          </div>
+          <div ng-if="albums.length == 0">Nenhum album.</div>
+        </div>
+        <br>
+        <h4>Top Músicas:</h4>
+        <div class="container">
+          <div class="list-group-item list-group-item-action clearfix" ng-if="music.name" ng-repeat="music in musics | limitTo:10">
+            <button type="button" id="listenButton" ng-click="listen(music)" class="btn btn-success btn-sm btn-circle mx-1" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-play"></i>
+            </button> {{music.name}} - {{music.length}}
+          </div>
+          <div ng-if="musics.length == 0">Nenhuma música.</div>
+        </div>
+        <br>
+        <h4>Playlists:</h4>
+        <div class="container">
+          <div class="list-group-item list-group-item-action clearfix" ng-if="playlist.name" ng-repeat="playlist in playlists | limitTo:10">
+            {{playlist.name}} ({{playlist.musicList.length}} músicas)
+          </div>
+          <div ng-if="playlists.length == 0">Nenhuma playlist.</div>
+        </div>
+        <br>
+        <h4>Mural</h4>
+        <div class="container">
+          <form>
+            <div class="form-group">
+              <label for="inputMessageArea">Deixar recado</label>
+              <textarea class="form-control" id="inputMessageArea" ng-model="msg.message" rows="3"></textarea>
+            </div>
+            <button type="submit" ng-click="sendMessage()" class="btn btn-primary">Enviar</button>
+          </form>
+          <br>
+          <div ng-repeat="msg in messages | orderBy:'-' | limitTo:10 ">
+            <img class='centered-and-cropped card-img-top' width="50px" height="50px" style="border-radius: 50%; max-width: 50px" ng-src="{{ msg.author.profilePicUrl ? msg.author.profilePicUrl : '/images/blank-profile-picture.png' }}">  {{msg.author.nome}}
+            <div class="bd-callout bd-callout-info clearfix">
+              <div class="talktext">{{msg.message}}</div>
+              <div style="color: #99979c; font-size: 11px" class="float-right">{{msg.date}}</div>
+            </div>
+          </div>
+          <div ng-if="messages.length == 0">Nenhuma mensagem.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

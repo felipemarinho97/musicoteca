@@ -5,7 +5,14 @@ component('albumGrid', {
   templateUrl: '/templates/album-grid.html',
   controller: function(Data, $scope, $stateParams) {
 
-    $scope.list = Data.queryAlbums($stateParams.name);
+
+    Data.queryAlbums($stateParams.name)
+    .then((response) => {
+      $scope.list = response.data;
+    }).catch(() => {
+      console.log("Cannot find albums for this artist");
+    });
+    
     $scope.limit = 20;
 
     $scope.onSearchChange = function() {

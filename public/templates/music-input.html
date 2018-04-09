@@ -21,8 +21,8 @@ artist-box {
           <label for="nome">Nome</label>     <input class="form-control" type="text" name="musicName" id="nome" ng-model='music.name' ></br>
           <label for="artist">Artista</label>   <input class="form-control" type="text" name="artistName" id="artist" ng-model="music.artist" /></br>
           <label for="album">Album</label>   <input class="form-control" type="text" name="albumName" id="album" ng-model="music.album" /></br>
-          <label for="year">Ano de Lançamento</label>   <input class="form-control" type="year" id="year" pattern="^[1-2][0-9][0-9][0-9]$" ng-model="music.anoDeLancamento" /></br>
-          <label for="duracao">Duração (mm:ss)</label>   <input class="form-control" type="text" id="duracao" pattern="^[0-9]*:[0-5][0-9]$" ng-model="music.duracao" /></br>
+          <label for="year">Ano de Lançamento</label>   <input class="form-control" type="year" id="year" pattern="^[1-2][0-9][0-9][0-9]$" ng-model="music.releaseYear" /></br>
+          <label for="duracao">Duração (mm:ss)</label>   <input class="form-control" type="text" id="duracao" pattern="^[0-9]*:[0-5][0-9]$" ng-model="music.length" /></br>
 
           <button type="submit" class="btn btn-primary">
           Adicionar Música

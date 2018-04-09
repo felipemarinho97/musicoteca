@@ -55,11 +55,11 @@
     outline: 0;
   }
 </style>
-
-<div class='card hoverable post-module'>
+<div class='card card-transition hoverable post-module {{showItem}}'>
   <a ui-sref="profile.albums({name: artist.name})">
-    <div class="thumbnail"><img class='card-img-top' ng-src='{{artist.imagemSrc}}'>
-      <div>
+    <div class="thumbnail">
+      <img class='card-img-top' ng-src='{{artist.imagemSrc}}'>
+    </div>
   </a>
   <div class='card-block'>
     <h4 class='h4 card-title pt-2 text-center clearfix'>
@@ -75,12 +75,12 @@
 
     <div class="card-footer clearfix">
       <div class="float-right">
-        <angular-rating-icons decimal="true" max="10" icon-size="20" color-base="orange" ng-model="artist.classification"></angular-rating-icons>
+        <angular-rating-icons decimal="true" max="10" icon-size="20" color-base="orange" ng-click="updateClassification()" ng-model="artist.classification"></angular-rating-icons>
       </div>
       <div class="float-left">
-        <i class="fa fa-music"></i> {{artist.musicQtd}}
-        <i class="fa fa-dot-circle-o"></i> {{artist.albums.lenght}}
+        <i class="fa fa-music"></i> {{musicQtd()}}
+        <i class="fa fa-dot-circle-o"></i> {{artist.albums.length}}
       </div>
     </div>
   </div>
-  </div>
+</div>

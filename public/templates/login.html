@@ -1,0 +1,18 @@
+<div class="container p-5">
+  <div class="h2 form-title">Login</div>
+    </br>
+  <form class="from-group" ng-submit="login(user, remember)">
+    <label for="email">E-mail</label>     <input class="form-control" type="text" name="email" id="email" ng-model='user.email' required></br>
+    <label for="password">Senha</label>   <input class="form-control" type="password" name="password" id="password" ng-model="user.password" required/></br>
+    <div class="form-check">
+       <input type="checkbox" class="form-check-input ng-not-empty" id="remember" ng-model="remember" /> <label class="form-check-label " for="remember">Lembrar</label></br>
+    </div>
+    <button type="submit" class="btn btn-primary">
+    Login
+    </button>
+    <button class="btn btn-primary" ui-sref="register">
+    Registrar
+    </button>
+    <div class="p-2" id="alert-placeholder"></div>
+  </form>
+</div>

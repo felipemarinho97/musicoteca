@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('playlists', ['data']);
+angular.module('playlists', ['data', 'player']);
