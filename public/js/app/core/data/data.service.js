@@ -122,9 +122,13 @@ data.factory('Data', function($resource, $window, $http, base64) {
       } else {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.sessionStorage.token;
       }
-      $http.post(apiUrl + 'login', {}, {"method": "POST"}).then((response) => {
-        user = response.data;
-      })
+      return new Promise((resolve, reject) => {
+        $http.post(apiUrl + 'login', {}, {"method": "POST"})
+        .then((response) => {
+          user = response.data;
+          return resolve();
+        }).then(resolve()).catch(reject());
+      });
     },
 
     // getUserCredentials: () => {

@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('register', ['data']);
+angular.module('register', ['data', 'cfp.loadingBar']);

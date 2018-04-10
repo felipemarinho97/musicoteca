@@ -112,6 +112,17 @@ angular.module('musicoteca').
 
     });
 
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBSBoeSbQRSMJZfqBrW9iQGUL86HgmRrSI",
+  authDomain: "musicoteca-186602.firebaseapp.com",
+  databaseURL: "https://musicoteca-186602.firebaseio.com",
+  projectId: "musicoteca-186602",
+  storageBucket: "musicoteca-186602.appspot.com",
+  messagingSenderId: "435439679070"
+};
+firebase.initializeApp(config);
+
 function resolveArtists(Data) {
   Data.login();
   return Data.queryArtists().then((response) => {
