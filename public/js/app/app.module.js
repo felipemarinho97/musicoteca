@@ -12,6 +12,7 @@ angular.module('musicoteca', [
   'angular-loading-bar',
   'angularResizable',
   'draggableModule',
+  "angucomplete-alt",
 
   // interno
   'artistInput',

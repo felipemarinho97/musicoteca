@@ -37,12 +37,17 @@ component('musicInput', {
       releaseYear: null,
       length: ""
     }
+    $scope.$broadcast('angucomplete-alt:clearInput');
 
     var album = {
       musicas: {},
       addMusic: function(music) {
         this.musicas[name] = music;
       }
+    }
+
+    $scope.inputChanged = (resp) => {
+      $scope.music.album = resp;
     }
 
     $scope.createNewMusic = function() {
