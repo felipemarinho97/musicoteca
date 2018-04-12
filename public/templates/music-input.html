@@ -28,7 +28,8 @@ artist-box {
               text-no-results="false"
               pause="1000"
               input-changed="inputChanged"
-              remote-url='http://musicbrainz.org/ws/2/release-group?fmt=json&query=artist:"{{music.artist}}" AND '
+              minlength="1"
+              remote-url='https://musicbrainz.org/ws/2/release-group?fmt=json&query=artist:"{{music.artist}}" AND '
               remote-url-data-field="release-groups"
               title-field="title"
               description-field="album"

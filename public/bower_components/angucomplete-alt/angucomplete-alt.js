@@ -480,10 +480,13 @@
         httpCanceller = $q.defer();
         params.timeout = httpCanceller.promise;
         httpCallInProgress = true;
-        $http.get(url, params)
+        let headers = angular.copy($http.defaults.headers.common['Authorization']);
+        delete $http.defaults.headers.common['Authorization'];
+        $http.get(url+'*')
           .then(httpSuccessCallbackGen(str))
           .catch(httpErrorCallback)
           .finally(function(){httpCallInProgress=false;});
+        $http.defaults.headers.common['Authorization'] = headers;
       }
 
       function getRemoteResultsWithCustomHandler(str) {

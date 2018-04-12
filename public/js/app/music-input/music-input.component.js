@@ -4,7 +4,7 @@ angular.module('musicInput').
 component('musicInput', {
   templateUrl: '/templates/music-input.html',
   styleUrls: ['/css/music-input.component.css'],
-  controller: function(Data, $scope, $rootScope, $compile, LastFM) {
+  controller: function(Data, $scope, $rootScope, $compile, LastFM, $http) {
 
     function clone(obj) {
       if (null == obj || "object" != typeof obj) return obj;
