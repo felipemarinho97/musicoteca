@@ -50,6 +50,10 @@ component('musicInput', {
       $scope.music.album = resp;
     }
 
+    $scope.selectedObject = (resp) => {
+      $scope.music.album = resp.title;
+    }
+
     $scope.createNewMusic = function() {
       if (check($scope.music.name) || check($scope.music.artist) ||
         check($scope.music.album) || check($scope.music.releaseYear) ||
