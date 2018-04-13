@@ -66,7 +66,7 @@ component('musicInput', {
         //   console.log(a.$$state.value.image[2]["#text"]);
         // }, 500)
 
-        Data.putMusic(angular.copy($scope.music)).then(() => {
+        Data.putMusic($scope.music).then(() => {
           alert("success", $scope.music.name + " - " + $scope.music.artist + " adiconado!");
         }).catch((response) => {
           if (response.status == 409) {
