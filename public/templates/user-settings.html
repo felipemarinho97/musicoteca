@@ -6,6 +6,13 @@
     <label for="email">E-mail</label>     <input class="form-control" type="text" name="email" id="email" ng-model='user.username' required></br>
     <label for="profilePicUrl">Imagem</label>     <input class="form-control" type="text" name="profilePicUrl" id="profilePicUrl" ng-model='user.profilePicUrl'></br>
     <!-- <label for="password">Senha</label>   <input class="form-control" type="password" name="password" id="password" ng-model="user.password" required/></br> -->
+    <label for="lastfm">Last.fm</label><br>
+    <div ng-if="lastfm()">
+    {{sessionName()}}
+    <div ng-click="lastFMUnauth()" class="btn btn-danger" id="lastfm" name="lastfm">Desonectar</div>
+    </div>
+    <div ng-if="!lastfm()" ng-click="lastFMAuth()" class="btn btn-danger" id="lastfm" name="lastfm">Conectar</div>
+    <br><br>
 
     <button type="submit" class="btn btn-primary">
     Salvar

@@ -92,16 +92,22 @@ angular.module('musicoteca').
           url: "/user/:name",
           resolve: {
             user: resolveUser,
+            me: resolveMe,
             artists: resolveUserArtists,
             albums: resolveUserAlbums,
             musics: resolveUserMusics,
-            playlists: resolveUserPlaylists
+            playlists: resolveUserPlaylists,
+            followings: resolveUserFollowings,
+            followers: resolveUserFollowers
           },
           component: "userProfile"
         }).
         state("userProfile.settings", {
           url: "/settings",
-          component: "userSettings"
+          component: "userSettings",
+          resolve: {
+            apps: resolveUserApps
+          }
         }).
         state("404", {
           url: "/404",
@@ -123,15 +129,32 @@ function resolveArtists(Data) {
 }
 
 function resolveUser($stateParams, Data) {
+  Data.login();
   if (!$stateParams.name) {
     return Data.getUserCredentials();
   } else {
     return Data.getUser($stateParams.name).then((response) => {
+      // console.log(response.data);
       return response.data;
     }).catch(() => {
       return false;
     });
   }
+}
+
+function resolveMe(Data) {
+  return Data.loginPromise().then(() => {
+    let me = Data.getUserCredentials();
+    return Data.getUser(me.username).then((response) => {
+      return response.data;
+    });
+  });
+}
+
+function resolveUserApps(Data) {
+  return Data.getUserApps().then((response) => {
+    return response.data;
+  });
 }
 
 function resolveUserArtists(Data, $stateParams) {
@@ -154,6 +177,18 @@ function resolveUserMusics(Data, $stateParams) {
 
 function resolveUserPlaylists(Data, $stateParams) {
   return Data.queryUserPlaylists($stateParams.name).then((response) => {
+    return response.data;
+  });
+}
+
+function resolveUserFollowings(Data, $stateParams) {
+  return Data.getFollowing($stateParams.name).then((response) => {
+    return response.data;
+  });
+}
+
+function resolveUserFollowers(Data, $stateParams) {
+  return Data.getFollowers($stateParams.name).then((response) => {
     return response.data;
   });
 }

@@ -51,13 +51,14 @@ component('musicInput', {
     }
 
     $scope.selectedObject = (resp) => {
+      console.log(resp);
       $scope.music.album = resp.title;
     }
 
     $scope.createNewMusic = function() {
       if (check($scope.music.name) || check($scope.music.artist) ||
         check($scope.music.album) || check($scope.music.releaseYear) ||
-        check($scope.music.length)) { 
+        check($scope.music.length)) {
       } else {
 
         // let a = LastFM.Album.getInfo($scope.music.artist, $scope.music.album);
@@ -65,6 +66,7 @@ component('musicInput', {
         // setTimeout(function(){
         //   console.log(a.$$state.value.image[2]["#text"]);
         // }, 500)
+        console.log($scope.music);
 
         Data.putMusic($scope.music).then(() => {
           alert("success", $scope.music.name + " - " + $scope.music.artist + " adiconado!");

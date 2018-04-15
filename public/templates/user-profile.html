@@ -139,9 +139,12 @@
               <i class="fa fa-cog"></i>
             </button>
           </div>
-          <div ng-if="Data.getUserCredentials().username != name" class="dropdown">
-            <button type="button" id="settingsButton" ng-click="Data.follow(user.id)" class="btn btn-info btn-sm" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-plus"></i>
+          <div ng-if="Data.getUserCredentials().username != name">
+            <button ng-if="!isFollowing()" type="button" id="settingsButton" ng-click="follow(user.id)" class="btn btn-info btn-sm" aria-haspopup="true" aria-expanded="false">
+              Seguir <i class="fa fa-plus"></i>
+            </button>
+            <button ng-if="isFollowing()" type="button" id="settingsButton" ng-click="unfollow(user.id)" class="btn btn-danger btn-sm" aria-haspopup="true" aria-expanded="false">
+              Desseguir <i class="fa fa-minus"></i>
             </button>
           </div>
         </div>
@@ -151,17 +154,24 @@
           Musicas: {{musics.length}}
         </div>
         Seguidores:
-        <div ng-repeat="follower in followers">
-          <a ng-href="#!/user/{{follower.email}}">
+        <div class="container">
+        <div class="row justify-content-center"><div ng-repeat="follower in followers">
+          <a class="col px-2" ng-href="#!/user/{{follower.email}}">
             <img class='centered-and-cropped card-img-top' width="50px" height="50px" style="border-radius: 50%; max-width: 50px" ng-src="{{ follower.profilePicUrl ? follower.profilePicUrl : '/images/blank-profile-picture.png' }}">
           </a>
         </div>
+        </div>
+        </div>
         <div ng-if="followers.length == 0">{{user.nome}} ainda não tem seguidores</div>
         Seguindo:
+        <div class="container">
+        <div class="row justify-content-center">
         <div ng-repeat="following in followings">
-          <a ng-href="#!/user/{{following.email}}">
+          <a class="col px-2" ng-href="#!/user/{{following.email}}">
             <img class='centered-and-cropped card-img-top' width="50px" height="50px" style="border-radius: 50%; max-width: 50px" ng-src="{{ following.profilePicUrl ? following.profilePicUrl : '/images/blank-profile-picture.png' }}">
           </a>
+        </div>
+      </div>
         </div>
         <div ng-if="followings.length == 0">{{user.nome}} ainda não seguiu ninguém</div>
       </div>
@@ -189,7 +199,7 @@
         <h4>Top Músicas:</h4>
         <div class="container">
           <div class="list-group-item list-group-item-action clearfix" ng-if="music.name" ng-repeat="music in musics | limitTo:10">
-            <button type="button" id="listenButton" ng-click="listen(music)" class="btn btn-success btn-sm btn-circle mx-1" aria-haspopup="true" aria-expanded="false">
+            <button type="button" id="listenButton" ng-click="Player.listen(music)" class="btn btn-success btn-sm btn-circle mx-1" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-play"></i>
             </button> {{music.name}} - {{music.length}}
           </div>

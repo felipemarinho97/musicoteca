@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('player', []);
+angular.module('player', ['data', 'lastfm2']);
