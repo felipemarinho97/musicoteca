@@ -5,10 +5,13 @@ angular.module('userProfile').
     templateUrl: '/templates/user-profile.html',
     bindings: {
       user: "=",
+      me: "=",
       artists: "=",
       albums: "=",
       musics: "=",
-      playlists: "="
+      playlists: "=",
+      followings: "=",
+      followers: "="
     },
     controller: userProfile
   });
@@ -28,6 +31,8 @@ function userProfile(Data, Player, $scope, $window, $compile, $http, $stateParam
   //   });
   // }
 
+  $scope.Player = Player;
+
   let alert = function(type, message) {
     if ($("#alert-placeholder alert").length >= 3) {
       $("#alert-placeholder alert").last().remove();
@@ -43,6 +48,8 @@ function userProfile(Data, Player, $scope, $window, $compile, $http, $stateParam
     $scope.albums = this.albums;
     $scope.musics = this.musics;
     $scope.playlists = this.playlists;
+    $scope.followings = this.followings;
+    $scope.followers = this.followers;
 
     if (!this.user) {
       changeRoute("#!/404");
@@ -52,36 +59,18 @@ function userProfile(Data, Player, $scope, $window, $compile, $http, $stateParam
       $scope.messages = response.data;
     })
 
-    Data.getFollowing($scope.user.id).then((response) => {
-      $scope.followings = response.data;
-    });
-
-    Data.getFollowers($scope.user.id).then((response) => {
-      $scope.followers = response.data;
-    });
+    $scope.isFollowing = () => this.followers.some(elem => elem.email === this.me.email);
 
   }
 
-  $scope.listen = (music) => {
-    Data.setLastMusic(music);
+  $scope.follow = (userId) => {
+    this.followers.push(this.me);
+    Data.follow(userId);
+  }
 
-    let headers = angular.copy($http.defaults.headers.common['Authorization']);
-
-    delete $http.defaults.headers.common['Authorization'];
-
-    $http.get('https://www.googleapis.com/youtube/v3/search/?part=snippet&q='+music.name+' '+music.artist+'&key=AIzaSyAZ87gwtf9Jhg5vFj_D1e8Fl1y_vSC9uV8').then((response) => {
-      $scope.videoID = response.data.items[0].id.videoId;
-      Player.setVideoID($scope.videoID);
-      Player.setMusic(music);
-
-      $window.document.title = music.name + " - " + music.artist + " | Musicoteca";
-      $window.setTimeout(() => {
-        $window.document.title = "Musicoteca";
-      }, getTimeout(music))
-    });
-
-    $http.defaults.headers.common['Authorization'] = headers;
-
+  $scope.unfollow = (userId) => {
+    this.followers = this.followers.filter(elem => elem.email !== this.me.email);
+    Data.unfollow(userId);
   }
 
   $scope.msg = {};
@@ -106,12 +95,5 @@ function userProfile(Data, Player, $scope, $window, $compile, $http, $stateParam
           $scope.$apply();
       }
   };
-
-  function getTimeout(music) {
-    let arr = music.length.split(":");
-    let minSum = parseInt(arr[0]);
-    let secSum = parseInt(arr[1]);
-    return ((minSum * 60) + secSum)*1000;
-  }
 
 }

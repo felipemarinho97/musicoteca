@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('userSettings', ['data']);
+angular.module('userSettings', ['data', 'lastfm2']);

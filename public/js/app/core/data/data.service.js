@@ -5,7 +5,18 @@ var data = angular.module('data');
 data.factory('Data', function($resource, $window, $http, base64) {
 
   var user;
-  var apiUrl = 'https://musicoteca.herokuapp.com/';
+  // const apiUrl = 'https://musicoteca.herokuapp.com/';
+  const apiUrl = 'http://localhost:8080/';
+  const youtubeApiUrl = 'https://www.googleapis.com/youtube/v3/';
+  const googleApiKey = 'AIzaSyAZ87gwtf9Jhg5vFj_D1e8Fl1y_vSC9uV8';
+
+  function makeAnonGetCall(url) {
+    let headers = angular.copy($http.defaults.headers.common['Authorization']);
+    delete $http.defaults.headers.common['Authorization'];
+    let promise = $http.get(url);
+    $http.defaults.headers.common['Authorization'] = headers;
+    return promise;
+  }
 
   return {
     queryArtists: function() {
@@ -127,6 +138,19 @@ data.factory('Data', function($resource, $window, $http, base64) {
       })
     },
 
+    loginPromise: () => {
+      return new Promise((resolve, reject) => {
+        if ($window.localStorage.token) {
+          $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.localStorage.token;
+        } else {
+          $http.defaults.headers.common['Authorization'] = 'Basic ' + $window.sessionStorage.token;
+        }
+        $http.post(apiUrl + 'login', {}, {"method": "POST"}).then((response) => {
+          user = response.data;
+        }).then(resolve);
+      });
+    },
+
     // getUserCredentials: () => {
     //   return $http.post(apiUrl + 'login', {}, {"method": "POST"});
     // },
@@ -168,11 +192,15 @@ data.factory('Data', function($resource, $window, $http, base64) {
     },
 
     update: (user) => {
-      return $http.post(apiUrl + 'user/update', {"email": user.username, "nome": user.nome, "profilePicUrl": user.profilePicUrl});
+      return $http.post(apiUrl + 'user/update', {"email": user.username, "nome": user.nome, "profilePicUrl": user.profilePicUrl, "apps": user.apps});
     },
 
     getYouTubeVideoID: (music) => {
-      return $http.get('https://www.googleapis.com/youtube/v3/search/?part=snippet&q='+music.name+' '+music.artist+'&key=AIzaSyAZ87gwtf9Jhg5vFj_D1e8Fl1y_vSC9uV8');
+      return makeAnonGetCall(`${youtubeApiUrl}search/?part=snippet&q=${music.name} ${music.artist}&key=${googleApiKey}`);
+    },
+
+    getYouTubeVideoDetails: (videoID) => {
+      return makeAnonGetCall(`${youtubeApiUrl}videos?id=${videoID}&part=contentDetails&key=${googleApiKey}`);
     },
 
     sendMessage: (userID, msg) => {
@@ -185,8 +213,19 @@ data.factory('Data', function($resource, $window, $http, base64) {
 
     getUserSentMessages: (userID) => {
       return $http.get(apiUrl + 'user/message/' + userID + '/sent');
-    }
+    },
 
+    getUserApps: () => {
+      return $http.get(apiUrl + 'user/apps');
+    },
+
+    addUserApp: (app) => {
+      return $http.post(apiUrl + 'user/apps', app);
+    },
+
+    deleteUserApp: (appName) => {
+      return $http.delete(apiUrl + `user/apps/${appName}`);
+    }
   }
 
 });
